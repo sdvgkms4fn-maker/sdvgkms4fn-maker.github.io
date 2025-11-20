@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>YouTube 非公開動画探し</title>
+<style>
+body{
+    background:#ffffff;
+    color:#000;
+    font-family:sans-serif;
+    padding:20px;
+}
+.box{
+    background:#fff;
+    border:2px solid #ccc;
+    border-radius:10px;
+    padding:20px;
+    max-width:750px;
+    margin:auto;
+    box-shadow:0 0 15px #00000020;
+}
+input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:6px;
+    border:1px solid #aaa;
+    background:#fff;
+    color:#000;
+}
+button{
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    background:#0084ff;
+    color:#fff;
+    font-size:16px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+button:hover{
+    opacity:0.9;
+}
+iframe{
+    width:100%;
+    height:360px;
+    margin-top:20px;
+    border:none;
+    background:#000;
+}
+.desc{
+    padding:10px;
+    background:#f0f0f0;
+    border:1px solid #ccc;
+    border-radius:6px;
+    margin-bottom:20px;
+    line-height:1.5;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+    <h2>YouTube 非公開動画探し</h2>
+
+    <div class="desc">
+        あなたが昔見てたのが非公開になっており困っているあなた<br>
+        このサイト「YouTube 非公開動画探し」なら<br>
+        あなたの探してる動画も見れるようになります！<br>
+        （ただし見られない動画もあるのでご注意ください。）
+    </div>
+
+    <label>YouTube URL：</label>
+    <input id="yt" placeholder="例: https://youtu.be/GvuXZ2GQah4?si=qgioKC3E9aBVkbhm">
+
+    <button onclick="loadVideo()">確認する</button>
+
+    <iframe id="player"></iframe>
+</div>
+
+<script>
+function loadVideo(){
+    let url = document.getElementById("yt").value.trim();
+
+    let match = url.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_\-]+)/);
+
+    if(!match){
+        alert("動画IDが見つかりません…");
+        return;
+    }
+
+    let videoID = match[1];
+
+    // Wayback 動画URL（非表示）
+    let archiveURL =
+        "https://web.archive.org/web/2oe_/http://wayback-fakeurl.archive.org/yt/" 
+        + videoID;
+
+    // プレイヤーに読み込み
+    document.getElementById("player").src = archiveURL;
+}
+</script>
+
+</body>
+</html>
